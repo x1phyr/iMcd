@@ -14,7 +14,7 @@
 ### 前置条件
 
 - Docker & Docker Compose
-- 麦当劳 MCP Token（从 https://open.mcd.cn/mcp/auth 获取）
+- 麦当劳 MCP Token（从 https://open.mcd.cn/mcp/login 获取）
 
 ### 部署方式一：使用预构建镜像（推荐）
 

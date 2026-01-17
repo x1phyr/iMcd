@@ -54,7 +54,7 @@ export function SettingsPage() {
             <li>粘贴到上方输入框中</li>
           </ol>
           <a
-            href="https://open.mcd.cn/mcp/auth"
+            href="https://open.mcd.cn/mcp/login"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-sm text-mcd-red hover:underline mt-2"
