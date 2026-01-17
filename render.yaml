@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: imcd-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: FRONTEND_URL
+        value: https://imcd-frontend.onrender.com

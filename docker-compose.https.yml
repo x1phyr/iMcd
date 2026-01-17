@@ -1,0 +1,49 @@
+services:
+  backend:
+    image: imcd-backend:latest
+    container_name: imcd-backend
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - FRONTEND_URL=https://${DOMAIN:-localhost}
+    networks:
+      - imcd-network
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  frontend:
+    image: imcd-frontend:latest
+    container_name: imcd-frontend
+    restart: unless-stopped
+    networks:
+      - imcd-network
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: imcd-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - imcd-network
+
+networks:
+  imcd-network:
+    driver: bridge
+
+volumes:
+  caddy_data:
+  caddy_config:
